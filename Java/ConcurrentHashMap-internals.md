@@ -109,3 +109,41 @@ concurrentMap.put("key4", 4);
 ```
 
 In practice, the actual level of concurrency depends on factors such as the number of available processor cores, the nature of the workload, and the efficiency of thread scheduling. While `ConcurrentHashMap` supports high concurrency, it's essential to consider the specific requirements and characteristics of the application when determining the optimal number of threads to use.
+
+### Benefit of using concurrent hash map over hash table and synchronize map!
+`ConcurrentHashMap` offers several benefits over `HashTable` and synchronized `Map` implementations, primarily related to performance, scalability, and flexibility in concurrent environments. Here are some key advantages:
+
+1. **Fine-Grained Locking:**
+   - `ConcurrentHashMap` uses a finer-grained locking mechanism compared to `HashTable`.
+   - Instead of locking the entire map during write operations, it divides the map into segments, allowing different segments to be independently locked.
+   - This reduces contention and allows multiple threads to operate concurrently on different segments.
+
+2. **Scalability:**
+   - Due to the segmentation approach, `ConcurrentHashMap` scales better with a larger number of threads compared to `HashTable`.
+   - Multiple threads can operate on different segments concurrently, leading to better parallelism.
+
+3. **Concurrent Reads:**
+   - Multiple threads can perform read operations concurrently on a `ConcurrentHashMap` without blocking each other.
+   - In contrast, `HashTable` and synchronized `Map` implementations typically require exclusive locks for both read and write operations, leading to contention during reads.
+
+4. **Concurrent Writes:**
+   - Write operations in `ConcurrentHashMap` are more scalable because different segments can be independently locked during write operations.
+   - `HashTable` and synchronized `Map` implementations use a global lock, which can result in contention and reduced parallelism during writes.
+
+5. **Performance:**
+   - `ConcurrentHashMap` is designed for high-performance concurrent access, making it suitable for scenarios with a large number of threads.
+   - `HashTable` and synchronized `Map` implementations may suffer from contention and synchronization overhead, impacting performance under heavy concurrent loads.
+
+6. **Iterative Operations:**
+   - Iterative operations (e.g., iterating over entries) in `ConcurrentHashMap` do not require locking and can be performed concurrently with write operations.
+   - In contrast, synchronized `Map` implementations may require exclusive locks during iteration, affecting overall performance.
+
+7. **Null Values:**
+   - `ConcurrentHashMap` allows `null` values for both keys and values, offering more flexibility.
+   - `HashTable` does not allow `null` keys or values, while synchronized `Map` implementations may have limitations or require additional checks for `null` values.
+
+8. **Dynamic Concurrency Adjustments:**
+   - `ConcurrentHashMap` allows dynamic adjustments to the level of concurrency by adjusting the number of segments.
+   - This flexibility is useful in adapting to changing workload characteristics.
+
+In summary, `ConcurrentHashMap` provides improved concurrency, scalability, and performance compared to `HashTable` and synchronized `Map` implementations, making it a preferred choice in scenarios where concurrent access is a critical factor. However, the specific choice depends on the application requirements and characteristics.
