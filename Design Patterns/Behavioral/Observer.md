@@ -1,4 +1,4 @@
-In the Observer pattern, there are typically two main interfaces involved: `Observer` and `Subject`. These interfaces define the roles and responsibilities of the objects participating in the pattern.
+The Observer Design Pattern is a behavioral design pattern where an object, known as the subject, maintains a list of its dependents, known as observers, that are notified of any changes in the subject's state. This pattern is commonly used to implement distributed event handling systems, where one object (the subject) changes its state, and all registered observers are notified and updated automatically.
 
 1. **Observer Interface:**
    The `Observer` interface is implemented by the objects that want to be notified of changes in the subject. This interface usually consists of a method (or methods) that is called by the subject to inform the observer about the state change.
@@ -25,6 +25,12 @@ In the Observer pattern, there are typically two main interfaces involved: `Obse
    - `registerObserver`: Adds an observer to the list of observers.
    - `unregisterObserver`: Removes an observer from the list of observers.
    - `notifyObservers`: Notifies all registered observers about the state change.
+
+3. **ConcreteSubject:**
+   - This is the concrete implementation of the subject. It keeps track of its observers and notifies them when its state changes.
+
+4. **ConcreteObserver:**
+   - This is the concrete implementation of the observer. It registers with a subject to receive updates and implements the update method to respond to changes in the subject's state.
 
 Here's a simple example in Java:
 
